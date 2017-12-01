@@ -30,11 +30,11 @@ function darwinMacports {
 	echo
 
 	echo Updating Macports
-	port selfupdate
+	port selfupdate || exit
 	echo
 
 	echo Upgrading outdated ports
-	port upgrade outdated
+	port upgrade outdated || exit
 	echo
 
 }
@@ -48,11 +48,11 @@ function darwinOS {
 	fi
 
 	echo Running periodic scripts
-	periodic daily weekly monthly
+	periodic daily weekly monthly || exit
 	echo
 
 	echo Updating the OS
-	softwareupdate --install --recommended
+	softwareupdate --install --recommended || exit
 	echo
 
 	echo Please read the messages above and reboot if needed.

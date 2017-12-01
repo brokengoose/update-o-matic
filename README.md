@@ -19,8 +19,8 @@ emphasis is on safety rather than efficiency.
 ## Known Issues
 
 At the moment the Linux scripts automatically reboot after updating and the
-Darwin script does not. This is because on the Linux machines, I run the script
-nightly from cron. 
+Darwin script does not. That could surprise desktop linux users. I should
+probably add a flag, or at least, a prominent global variable.
 
 Very few operating systems supported at this time. I have old scripts for old
 versions of some other operating systems, but I need to be sure that they still

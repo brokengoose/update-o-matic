@@ -10,4 +10,5 @@ one script that can be pulled down and run from any OS that supports bash.
   * Fedora
   * Ubuntu
 * Darwin (a.k.a. OS X)
+  * with or without Macports
 

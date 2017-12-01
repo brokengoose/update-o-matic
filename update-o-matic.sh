@@ -8,7 +8,7 @@ function linuxFedora {
 	dnf check --assumeyes &&
 	dnf autoremove --assumeyes &&
 	dnf upgrade --assumeyes &&
-	shutdown -r +5 "Applying Updates"
+	shutdown -r +5 "Applying Updates. Cancel with shutdown -c"
 }
 
 function linuxUbuntu {
@@ -16,7 +16,7 @@ function linuxUbuntu {
 	/usr/bin/apt-get autoremove --yes &&
 	/usr/bin/apt-get update --yes &&
 	/usr/bin/apt-get dist-upgrade --yes &&
-	/sbin/shutdown -r +5 "Rebooting to apply patches"
+	/sbin/shutdown -r +5 "Applying patches. Cancel with shutdown -c"
 
 }
 

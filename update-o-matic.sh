@@ -20,6 +20,43 @@ function linuxUbuntu {
 
 }
 
+function darwinMacports {
+
+	# Just in case someone forgot to check for the port executable
+	command -v port || exit
+
+	echo Uninstalling inactive ports. A \"No ports matched\" error is okay.
+	port uninstall inactive
+	echo
+
+	echo Updating Macports
+	port selfupdate
+	echo
+
+	echo Upgrading outdated ports
+	port upgrade outdated
+	echo
+
+}
+
+function darwinOS {
+	# Run port updates before OS updates
+	# in case OS update requires an immediate reboot
+	if [ `command -v port` ]
+	then
+		darwinMacports
+	fi
+
+	echo Running periodic scripts
+	periodic daily weekly monthly
+	echo
+
+	echo Updating the OS
+	softwareupdate --install --recommended
+	echo
+
+	echo Please read the messages above and reboot if needed.
+}
 # END Functions
 
 # BEGIN Main
@@ -38,7 +75,7 @@ Linux*)
 	machine=Linux
 	;;
 Darwin*)
-	machine=OSX
+	machine=Darwin
 	;;
 *)
 	machine="UNKNOWN:$majorArch"
@@ -59,6 +96,13 @@ then
 		echo Unknown Linux distribution
 		;;
 	esac
+
+elif [ $majorArch = "Darwin" ];
+then
+	darwinOS
+else
+	echo I am not sure what to do here.
+
 fi
 
 # END Main

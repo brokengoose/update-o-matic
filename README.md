@@ -20,7 +20,7 @@ emphasis is on safety rather than efficiency.
 5. If it's a server OS, reboot after 5 minutes. In the warning message,
    give cancellation instructions, just in case anyone's using the server.
 
-## Supported Operating Systems
+## Supported Operating Systems (so far!)
 * Linux variants
   * Fedora
   * Ubuntu

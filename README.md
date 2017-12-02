@@ -1,7 +1,9 @@
 # update-o-matic
 
 I wanted a single, cross-platform way to say "Apply all updates in a reasonably
-safe and sane manner". Over the years, I've written scripts for most of the
+safe and sane manner".  It seems like most update commands require several
+discrete commands: clean up, update DB, ACTUALLY update, etc.
+Over the years, I've written scripts for most of the
 operating systems that I run at home. This is an effort to merge them into
 one script that can be pulled down and run from any OS that supports bash.
 

@@ -11,6 +11,15 @@ I wanted scripts that could be run nightly from cron on servers, and scripts
 that could be run by non-technical relatives on the desktop. Therefore, the
 emphasis is on safety rather than efficiency.
 
+## General update order
+1. Update third-party repos or tools that run on top of the OS. Macports, etc.
+2. Run any OS cleanup, fix, or check commands. If possible, the script should
+   abort if this step fails.
+3. Sync update databases and get list of possible updates.
+4. Download and apply updates. Avoid experimental or not-recommended updates.
+5. If it's a server OS, reboot after 5 minutes. In the warning message,
+   give cancellation instructions, just in case anyone's using the server.
+
 ## Supported Operating Systems
 * Linux variants
   * Fedora

@@ -88,7 +88,7 @@ function darwinOS {
 	softwareupdate --install --recommended || exit
 	echo
 
-	echo Please read the messages above and reboot if needed.
+	rebootIfAllowed
 }
 
 function linuxFedora {

@@ -2,7 +2,7 @@
 
 # BEGIN GlobalVariables
 
-REBOOT=false
+REBOOT=true
 
 # END GlobalVariables
 

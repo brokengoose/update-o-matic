@@ -90,6 +90,11 @@ function darwinOS {
 	rebootIfAllowed
 }
 
+function linuxDebian {
+	echo Debian detected.
+	linuxAptGet
+}
+
 function linuxFedora {
 	echo Fedora detected.
 	
@@ -164,7 +169,7 @@ then
 		linuxUbuntu
 		;;
 	*)
-		echo Unknown Linux distribution
+		echo Unknown Linux distribution $distro
 		;;
 	esac
 

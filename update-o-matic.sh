@@ -29,16 +29,14 @@ function rebootIfAllowed {
 		if [ -f `which shutdown` ]
 		then
 			shutdown -r +5 "Applying Updates. Abort with shutdown -c"
-			echo The PID of the shutdown command is $!
 		else
 			echo No shutdown command found.
 		fi
 	else
-		echo Be sure that you do not need to reboot.
+		echo
+		echo Reboot as soon as possible.
 	fi
 }
-
-
 
 function linuxAptGet {
 	executableFileExists apt-get
@@ -68,6 +66,112 @@ function linuxYum {
 	yum autoremove --assumeyes &&
 	yum update --assumeyes &&
 	rebootIfAllowed
+}
+
+function linuxZypper {
+	executableFileExists zypper
+
+	zypper refresh &&
+	zypper update --auto-agree-with-licenses --no-confirm &&
+	rebootIfAllowed
+}
+
+function redhatVariant {
+	echo Redhat variant detected.
+	
+	if type dnf>/dev/null 2>&1
+	then
+		linuxDnf
+	elif type yum>/dev/null 2>&1
+	then
+		linuxYum
+	else
+		Neither dnf nor yum found. Exiting.
+		exit
+	fi
+}
+
+function suseVariant {
+	echo SuSE variant detected.
+
+	if type zypper>/dev/null 2>&1
+	then
+		linuxZypper
+	else
+		echo SuSE, but zypper is not installed. Exiting.
+		exit
+	fi
+}
+
+function LinuxLsbDetect {
+	executableFileExists lsb_release
+	distro=`lsb_release -si`
+
+	case $distro in
+	CentOS)
+		linuxYum
+		;;
+	Debian) 
+		linuxAptGet
+		;;
+	Fedora) 
+		linuxYum
+		;;
+	Raspbian)
+		linuxAptGet
+		;;
+	Ubuntu)
+		linuxAptGet
+		;;
+	*)
+		echo Unknown Linux distribution $distro
+		;;
+	esac
+
+}
+
+function linuxDistroDetect {
+	if type lsb_detect>/dev/null 2>&1
+	then
+		linuxLsbDetect
+	elif [ -f /etc/os-release ]
+	then
+		. /etc/os-release
+		distro=$NAME
+	elif [ -f /etc/lsb-release ]
+	then
+		. /etc/lsb-release
+		distro=$DISTRIB_ID
+	elif [ -f /etc/redhat-release ]
+	then
+		redhatVariant
+	elif [ -f /etc/SuSE-release ]
+	then
+		suseVariant
+	fi
+
+	case $distro in
+		CentOS*)
+		redhatVariant
+		;;
+	Debian*)
+		linuxAptGet
+		;;
+	Fedora*)
+		redhatVariant
+		;;
+	Raspbian*)
+		linuxAptGet
+		;;
+	Ubuntu*)
+		linuxAptGet
+		;;
+        *)
+       	        echo Unknown Linux distribution $distro
+               	;;
+	esac
+
+
 }
 
 function darwinMacports {
@@ -107,47 +211,6 @@ function darwinOS {
 	echo To abort, kill the shutdown PID
 }
 
-function linuxCentOS {
-	echo CentOS detected.
-	linuxYum
-}
-
-function linuxDebian {
-	echo Debian detected.
-	linuxAptGet
-}
-
-function linuxFedora {
-	echo Fedora detected.
-	
-	if [ -f `which dnf` ]
-	then
-		linuxDnf
-	elif [ -f `which yum` ]
-	then
-		echo You are using Yum, which is not yet supported.
-	else
-		Weird. Neither dnf nor yum found. 
-	fi
-}
-
-function linuxRaspbian {
-	echo Raspbian detected.
-	linuxAptGet
-}
-
-function linuxUbuntu {
-	echo Ubuntu detected.
-
-	if [ -f `which apt-get` ]
-	then
-		linuxAptGet
-	else
-		Weird. apt-get is not installed. Cannot continue.
-		exit.
-	fi
-}
-
 # END Functions
 
 # BEGIN Main
@@ -173,36 +236,10 @@ Darwin*)
 	;;
 esac
 
-if [ $majorArch = "Linux" ];
+if [ $majorArch = "Linux" ]
 then
-
-	echo Linux detected.
-
-	executableFileExists lsb_release
-	distro=`lsb_release -si`
-
-	case $distro in
-	CentOS)
-		linuxCentOS
-		;;
-	Debian) 
-		linuxDebian
-		;;
-	Fedora) 
-		linuxFedora
-		;;
-	Raspbian)
-		linuxRaspbian
-		;;
-	Ubuntu)
-		linuxUbuntu
-		;;
-	*)
-		echo Unknown Linux distribution $distro
-		;;
-	esac
-
-elif [ $majorArch = "Darwin" ];
+	linuxDistroDetect
+elif [ $majorArch = "Darwin" ]
 then
 	darwinOS
 else

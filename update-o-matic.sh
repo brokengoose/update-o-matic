@@ -13,7 +13,8 @@ function executableFileExists {
 	if [ ! -f `which $1` ]
 	then
 		echo $1 does not exist. Please install it before continuing.
-		echo Your package manager may have a way to search for this file
+		echo It may be possible to search for this file with
+		echo your package manager.
 		exit
 	fi
 }
@@ -54,9 +55,7 @@ function linuxAptGet {
 }
 
 function darwinMacports {
-
-	# Just in case someone forgot to check for the port executable
-	command -v port || exit
+	executableFileExists port
 
 	echo Uninstalling inactive ports. A \"No ports matched\" error is okay.
 	port uninstall inactive
@@ -75,7 +74,7 @@ function darwinMacports {
 function darwinOS {
 	# Run port updates before OS updates
 	# in case OS update requires an immediate reboot
-	if [ `command -v port` ]
+	if [ `which port` ]
 	then
 		darwinMacports
 	fi
@@ -108,7 +107,7 @@ function linuxFedora {
 function linuxUbuntu {
 	echo Ubuntu detected.
 
-	if [ -f `which dnf` ]
+	if [ -f `which apt-get` ]
 	then
 		linuxAptGet
 	else

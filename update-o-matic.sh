@@ -11,14 +11,15 @@ REBOOT=true
 
 function executableFileExists {
 	echo Testing for $1
-	if [ ! -f `which $1` ]
+	testFile=`which $1`
+	if [ -f "$testFile" ]
 	then
+		echo Found $1
+	else
 		echo $1 does not exist. Please install it before continuing.
 		echo It may be possible to search for this file with
 		echo your package manager.
 		exit
-	else
-		echo Found $1
 	fi
 }
 

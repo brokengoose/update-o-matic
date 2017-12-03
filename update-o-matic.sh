@@ -105,6 +105,11 @@ function linuxFedora {
 	fi
 }
 
+function linuxRaspbian {
+	echo Raspbian detected.
+	linuxAptGet
+}
+
 function linuxUbuntu {
 	echo Ubuntu detected.
 
@@ -152,6 +157,9 @@ then
 
 	case $distro in
 	Fedora) linuxFedora
+		;;
+	Raspbian)
+		linuxRaspbian
 		;;
 	Ubuntu)
 		linuxUbuntu

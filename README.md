@@ -29,6 +29,7 @@ emphasis is on safety rather than efficiency.
 ## Supported Operating Systems (so far!)
 * Linux variants
   * Fedora
+  * Raspbian
   * Ubuntu
 * Darwin (a.k.a. OS X)
   * with or without Macports

@@ -7,12 +7,12 @@ REBOOT=true
 # END GlobalVariables
 
 # BEGIN Functions 
-# before the main program, because bash
+# bash requires that functions be declared before they're used
+# so this will build up from detailed functions to more abstract functions
 
 function executableFileExists {
-	echo Testing for $1
 	testFile=`which $1`
-	if [ -f "$testFile" ]
+	if [ -x "$testFile" ]
 	then
 		echo Found $1
 	else
@@ -41,7 +41,6 @@ function rebootIfAllowed {
 function linuxAptGet {
 	executableFileExists apt-get
 
-	echo Updating using apt-get
 	/usr/bin/apt-get autoremove --yes &&
 	/usr/bin/apt-get update --yes &&
 	/usr/bin/apt-get dist-upgrade --yes &&
@@ -51,7 +50,6 @@ function linuxAptGet {
 function linuxDnf {
 	executableFileExists dnf
 
-	echo dnf detected
 	dnf check --assumeyes &&
 	dnf autoremove --assumeyes &&
 	dnf upgrade --assumeyes &&
@@ -61,8 +59,6 @@ function linuxDnf {
 function linuxYum {
 	executableFileExists yum
 
-	echo yum detected
-	yum check --assumeyes &&
 	yum autoremove --assumeyes &&
 	yum update --assumeyes &&
 	rebootIfAllowed

@@ -39,7 +39,7 @@ emphasis is on safety rather than efficiency.
   * with or without Macports
 
 ## How to install and use
-* go to wherever you store source code. Maybe /usr/local/src
+* go to whatever directory you use to store source code.
 * git clone https://github.com/brokengoose/update-o-matic.git
 * sudo bash update-o-matic/update-o-matic.sh
 * When it's time for updates, cd update-o-matic; git pull

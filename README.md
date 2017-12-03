@@ -11,6 +11,12 @@ I wanted scripts that could be run nightly from cron on servers, and scripts
 that could be run by non-technical relatives on the desktop. Therefore, the
 emphasis is on safety rather than efficiency.
 
+## Requirements
+1. bash
+2. ability to run as root (or equivalent, like sudo)
+3. If you're running Linux, lsb_release must be installed to detect which
+   distribution you're running.
+
 ## General update order
 1. Update third-party repos or tools that run on top of the OS. Macports, etc.
 2. Run any OS cleanup, fix, or check commands. If possible, the script should

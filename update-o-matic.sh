@@ -28,7 +28,9 @@ function rebootIfAllowed {
 	then
 		if [ -f `which shutdown` ]
 		then
-			shutdown -r +5 "Applying Updates. Cancel with shutdown -c"
+			shutdown -r +5 "Applying Updates."
+			echo The PID of the shutdown command is $!
+			echo Abort with shutdown -c or kill $!
 		else
 			echo No shutdown command found.
 		fi

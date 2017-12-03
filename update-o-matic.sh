@@ -105,6 +105,11 @@ function darwinOS {
 	rebootIfAllowed
 }
 
+function linuxCentOS {
+	echo CentOS detected.
+	linuxYum
+}
+
 function linuxDebian {
 	echo Debian detected.
 	linuxAptGet
@@ -175,6 +180,9 @@ then
 	distro=`lsb_release -si`
 
 	case $distro in
+	CentOS)
+		linuxCentOS
+		;;
 	Debian) 
 		linuxDebian
 		;;

@@ -28,9 +28,8 @@ function rebootIfAllowed {
 	then
 		if [ -f `which shutdown` ]
 		then
-			shutdown -r +5 "Applying Updates."
+			shutdown -r +5 "Applying Updates. Abort with shutdown -c"
 			echo The PID of the shutdown command is $!
-			echo Abort with shutdown -c or kill $!
 		else
 			echo No shutdown command found.
 		fi
@@ -105,6 +104,7 @@ function darwinOS {
 	echo
 
 	rebootIfAllowed
+	echo To abort, kill the shutdown PID
 }
 
 function linuxCentOS {

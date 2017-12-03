@@ -15,7 +15,9 @@ emphasis is on safety rather than efficiency.
 1. bash
 2. ability to run as root (or equivalent, like sudo)
 3. If you're running Linux, lsb_release must be installed to detect which
-   distribution you're running.
+   distribution you're running. This is not installed on many Redhat-based
+   systems. You can search for it with "yum provides lsb_release"
+   and it can be installed with something like "yum install redhat-lsb-core"
 
 ## General update order
 1. Update third-party repos or tools that run on top of the OS. Macports, etc.
@@ -28,6 +30,7 @@ emphasis is on safety rather than efficiency.
 
 ## Supported Operating Systems (so far!)
 * Linux variants
+  * CentOS
   * Debian
   * Fedora
   * Raspbian

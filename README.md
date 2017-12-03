@@ -14,10 +14,10 @@ emphasis is on safety rather than efficiency.
 ## Requirements
 1. bash
 2. ability to run as root (or equivalent, like sudo)
-3. If you're running Linux, lsb_release must be installed to detect which
-   distribution you're running. This is not installed on many Redhat-based
-   systems. You can search for it with "yum provides lsb_release"
-   and it can be installed with something like "yum install redhat-lsb-core"
+3. The uname command must exist
+4. If you're running Linux, lsb_release must be installed to detect which
+   distribution you're running. Efforts are in progress to remove this
+   dependency.
 
 ## General update order
 1. Update third-party repos or tools that run on top of the OS. Macports, etc.
@@ -38,11 +38,20 @@ emphasis is on safety rather than efficiency.
 * Darwin (a.k.a. OS X)
   * with or without Macports
 
+## How to install and use
+* go to wherever you store source code. Maybe /usr/local/src
+* git clone https://github.com/brokengoose/update-o-matic.git
+* sudo bash update-o-matic/update-o-matic.sh
+* When it's time for updates, cd update-o-matic; git pull
+
 ## Known Issues
 
-Very few operating systems supported at this time. I have old scripts for old
-versions of some other operating systems, but I need to be sure that they still
-work correctly on current versions.
+I'm learning git as I do this. Every change is currently being pushed to the
+sole master branch, which is VERY dangerous. Things may break at any moment.
+
+This is currently used and reasonably well tested in my own environment, but
+I haven't tested as much in different environments or from pristine installs.
+There are probably bugs.
 
 Script assumes that current update tools are in use. For example, dnf on Fedora.
 For some operating systems, it might be necessary to dig more into versions

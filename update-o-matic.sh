@@ -99,37 +99,10 @@ function suseVariant {
 	fi
 }
 
-function LinuxLsbDetect {
-	executableFileExists lsb_release
-	distro=`lsb_release -si`
-
-	case $distro in
-	CentOS)
-		linuxYum
-		;;
-	Debian) 
-		linuxAptGet
-		;;
-	Fedora) 
-		linuxYum
-		;;
-	Raspbian)
-		linuxAptGet
-		;;
-	Ubuntu)
-		linuxAptGet
-		;;
-	*)
-		echo Unknown Linux distribution $distro
-		;;
-	esac
-
-}
-
 function linuxDistroDetect {
 	if type lsb_detect>/dev/null 2>&1
 	then
-		linuxLsbDetect
+		distro=`lsb_release -si`
 	elif [ -f /etc/os-release ]
 	then
 		. /etc/os-release
@@ -147,7 +120,7 @@ function linuxDistroDetect {
 	fi
 
 	case $distro in
-		CentOS*)
+	CentOS*)
 		redhatVariant
 		;;
 	Debian*)

@@ -160,7 +160,11 @@ then
 	distro=`lsb_release -si`
 
 	case $distro in
-	Fedora) linuxFedora
+	Debian) 
+		linuxDebian
+		;;
+	Fedora) 
+		linuxFedora
 		;;
 	Raspbian)
 		linuxRaspbian

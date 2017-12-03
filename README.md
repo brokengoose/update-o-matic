@@ -28,6 +28,7 @@ emphasis is on safety rather than efficiency.
 
 ## Supported Operating Systems (so far!)
 * Linux variants
+  * Debian
   * Fedora
   * Raspbian
   * Ubuntu

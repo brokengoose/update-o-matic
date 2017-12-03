@@ -34,6 +34,17 @@ function rebootIfAllowed {
 }
 
 
+
+function linuxAptGet {
+	executableFileExists apt-get
+
+	echo Updating using apt-get
+	/usr/bin/apt-get autoremove --yes &&
+	/usr/bin/apt-get update --yes &&
+	/usr/bin/apt-get dist-upgrade --yes &&
+	rebootIfAllowed
+}
+
 function linuxDnf {
 	executableFileExists dnf
 
@@ -44,13 +55,13 @@ function linuxDnf {
 	rebootIfAllowed
 }
 
-function linuxAptGet {
-	executableFileExists apt-get
+function linuxYum {
+	executableFileExists yum
 
-	echo Updating using apt-get
-	/usr/bin/apt-get autoremove --yes &&
-	/usr/bin/apt-get update --yes &&
-	/usr/bin/apt-get dist-upgrade --yes &&
+	echo yum detected
+	yum check --assumeyes &&
+	yum autoremove --assumeyes &&
+	yum update --assumeyes &&
 	rebootIfAllowed
 }
 

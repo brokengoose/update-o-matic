@@ -10,12 +10,15 @@ REBOOT=true
 # before the main program, because bash
 
 function executableFileExists {
+	echo Testing for $1
 	if [ ! -f `which $1` ]
 	then
 		echo $1 does not exist. Please install it before continuing.
 		echo It may be possible to search for this file with
 		echo your package manager.
 		exit
+	else
+		echo Found $1
 	fi
 }
 

@@ -74,6 +74,9 @@ function linuxZypper {
 }
 
 function redhatVariant {
+	# dnf seems to be the future direction for Redhat package management,
+	# but yum is still used in Redhat and CentOS
+
 	echo Redhat variant detected.
 	
 	if type dnf>/dev/null 2>&1
@@ -97,6 +100,7 @@ function suseVariant {
 	else
 		# I think that there are still some supported versions
 		# of SuSE Enterprise that use YaST. 
+
 		echo SuSE, but zypper is not installed. Exiting.
 		exit
 	fi
@@ -123,30 +127,17 @@ function linuxDistroDetect {
 	fi
 
 	case $distro in
-	CentOS*)
-		redhatVariant
-		;;
-	Debian*)
-		linuxAptGet
-		;;
-	Fedora*)
-		redhatVariant
-		;;
-	Raspbian*)
-		linuxAptGet
-		;;
-	Redhat*)
-		redhatVariant
-		;;
-	SuSE*)
-		suseVariant
-		;;
-	Ubuntu*)
-		linuxAptGet
-		;;
-        *)
-       	        echo Unknown Linux distribution $distro
-               	;;
+		CentOS*)	redhatVariant ;;
+		Fedora*)	redhatVariant ;;
+		Redhat*)	redhatVariant ;;
+
+		Debian*)	linuxAptGet ;;
+		Raspbian*)	linuxAptGet ;;
+		Ubuntu*)	linuxAptGet ;;
+
+		SuSE*)		suseVariant ;;
+
+       	        *)		echo Unknown Linux distribution $distro ;;
 	esac
 
 
@@ -186,7 +177,6 @@ function darwinOS {
 	echo
 
 	rebootIfAllowed
-	echo To abort, kill the shutdown PID
 }
 
 # END Functions

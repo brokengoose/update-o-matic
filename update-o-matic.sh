@@ -11,8 +11,9 @@ REBOOT=true
 # so this will build up from detailed functions to more abstract functions
 
 function executableFileExists {
-	testFile=`which $1`
-	if [ -x "$testFile" ]
+#	testFile=`which $1`
+#	if [ -x "$testFile" ]
+	if type $testfile>/dev/null 2>&1
 	then
 		echo Found $1
 	else
@@ -40,13 +41,21 @@ function rebootIfAllowed {
 }
 
 function freeBSDports {
-#	echo Add code here to update the ports tree
+	if pkg -N
+	then
+		echo FreeBSD ports are not set up.
+	else
+		pkg check &&
+		pkg autoremove &&
+		pkg update &&
+		pkg upgrade
+	fi
 }
 
 function freeBSD {
 	executableFileExists freebsd-update
 
-	freeBSDports
+#	freeBSDports
 
 	freebsd-update fetch &&
 	freebsd-update install &&

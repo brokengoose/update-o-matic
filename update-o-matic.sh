@@ -193,22 +193,9 @@ executableFileExists uname
 majorArch=`uname -s`;
 
 case $majorArch in
-Linux*)
-	machine=Linux
-	;;
-Darwin*)
-	darwinOS
-	;;
-*)
-	machine="UNKNOWN:$majorArch"
-	;;
+	Linux*)		linuxDistroDetect ;;
+	Darwin*)	darwinOS ;;
+	*)		machine="UNKNOWN:$majorArch" ;;
 esac
-
-if [ $majorArch = "Linux" ]
-then
-	linuxDistroDetect
-else
-	echo I am not sure what to do here.
-fi
 
 # END Main

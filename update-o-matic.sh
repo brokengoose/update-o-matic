@@ -43,7 +43,7 @@ function rebootIfAllowed {
 function freeBSDports {
 	executableFileExists pkg
 
-	pkg check &&
+	pkg check
 	pkg autoremove &&
 	pkg update &&
 	pkg upgrade

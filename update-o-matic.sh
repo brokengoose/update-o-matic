@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # BEGIN GlobalVariables
 
@@ -11,9 +11,9 @@ REBOOT=true
 # so this will build up from detailed functions to more abstract functions
 
 function executableFileExists {
-#	testFile=`which $1`
-#	if [ -x "$testFile" ]
-	if type $testfile>/dev/null 2>&1
+	testFile=$(which $1)
+	if [ -x "$testFile" ]
+#	if type $testfile>/dev/null 2>&1
 	then
 		echo Found $1
 	else

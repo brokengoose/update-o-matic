@@ -27,7 +27,7 @@ function rebootIfAllowed {
 	if $REBOOT
 	then
 		shutdownLocation=`which shutdown`
-		if [ -f "$shutdownLocation" ]
+		if [ -x "$shutdownLocation" ]
 		then
 			shutdown -r +5 "Applying Updates. Abort with shutdown -c"
 		else
@@ -177,7 +177,7 @@ function darwinMacports {
 function darwinOS {
 	# Run port updates before OS updates
 	# in case OS update requires an immediate reboot
-	if [ `which port` ]
+	if type port>/dev/null 2>&1
 	then
 		darwinMacports
 	fi

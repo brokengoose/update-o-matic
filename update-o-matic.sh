@@ -26,7 +26,8 @@ function executableFileExists {
 function rebootIfAllowed {
 	if $REBOOT
 	then
-		if [ -f `which shutdown` ]
+		shutdownLocation=`which shutdown`
+		if [ -f "$shutdownLocation" ]
 		then
 			shutdown -r +5 "Applying Updates. Abort with shutdown -c"
 		else

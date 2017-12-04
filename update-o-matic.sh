@@ -94,6 +94,8 @@ function suseVariant {
 	then
 		linuxZypper
 	else
+		# I think that there are still some supported versions
+		# of SuSE Enterprise that use YaST. 
 		echo SuSE, but zypper is not installed. Exiting.
 		exit
 	fi
@@ -131,6 +133,12 @@ function linuxDistroDetect {
 		;;
 	Raspbian*)
 		linuxAptGet
+		;;
+	Redhat*)
+		redhatVariant
+		;;
+	SuSE*)
+		suseVariant
 		;;
 	Ubuntu*)
 		linuxAptGet
@@ -198,7 +206,7 @@ Linux*)
 	machine=Linux
 	;;
 Darwin*)
-	machine=Darwin
+	darwinOS
 	;;
 *)
 	machine="UNKNOWN:$majorArch"
@@ -208,12 +216,8 @@ esac
 if [ $majorArch = "Linux" ]
 then
 	linuxDistroDetect
-elif [ $majorArch = "Darwin" ]
-then
-	darwinOS
 else
 	echo I am not sure what to do here.
-
 fi
 
 # END Main

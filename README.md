@@ -15,9 +15,6 @@ emphasis is on safety rather than efficiency.
 1. bash
 2. ability to run as root (or equivalent, like sudo)
 3. The uname command must exist
-4. If you're running Linux, lsb_release must be installed to detect which
-   distribution you're running. Efforts are in progress to remove this
-   dependency.
 
 ## General update order
 1. Update third-party repos or tools that run on top of the OS. Macports, etc.
@@ -34,6 +31,8 @@ emphasis is on safety rather than efficiency.
   * Debian
   * Fedora
   * Raspbian
+  * Redhat
+  * SuSE
   * Ubuntu
 * Darwin (a.k.a. OS X)
   * with or without Macports

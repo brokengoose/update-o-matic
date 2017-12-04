@@ -36,6 +36,7 @@ emphasis is on safety rather than efficiency.
   * Ubuntu
 * Darwin (a.k.a. OS X)
   * with or without Macports
+* FreeBSD with Ports and bash installed
 
 ## How to install and use
 * go to whatever directory you use to store source code.

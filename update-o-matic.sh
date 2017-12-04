@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # BEGIN GlobalVariables
 
@@ -11,7 +11,7 @@ REBOOT=true
 # so this will build up from detailed functions to more abstract functions
 
 function executableFileExists {
-	testFile=$(which $1)
+	testFile=`which $1`
 	if [ -x "$testFile" ]
 #	if type $testfile>/dev/null 2>&1
 	then
@@ -30,13 +30,13 @@ function rebootIfAllowed {
 		shutdownLocation=`which shutdown`
 		if [ -x "$shutdownLocation" ]
 		then
-			shutdown -r +5 "Applying Updates. Abort with shutdown -c"
+			shutdown -r +5 "Applying Updates."
 		else
 			echo No shutdown command found.
 		fi
 	else
 		echo
-		echo Reboot as soon as possible.
+		echo Please reboot as soon as possible.
 	fi
 }
 
@@ -55,7 +55,7 @@ function freeBSDports {
 function freeBSD {
 	executableFileExists freebsd-update
 
-#	freeBSDports
+	freeBSDports
 
 	freebsd-update fetch &&
 	freebsd-update install &&

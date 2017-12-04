@@ -41,15 +41,12 @@ function rebootIfAllowed {
 }
 
 function freeBSDports {
-	if pkg -N
-	then
-		echo FreeBSD ports are not set up.
-	else
-		pkg check &&
-		pkg autoremove &&
-		pkg update &&
-		pkg upgrade
-	fi
+	executableFileExists pkg
+
+	pkg check &&
+	pkg autoremove &&
+	pkg update &&
+	pkg upgrade
 }
 
 function freeBSD {

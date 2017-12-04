@@ -39,6 +39,20 @@ function rebootIfAllowed {
 	fi
 }
 
+function freeBSDports {
+#	echo Add code here to update the ports tree
+}
+
+function freeBSD {
+	executableFileExists freebsd-update
+
+	freeBSDports
+
+	freebsd-update fetch &&
+	freebsd-update install &&
+	rebootIfAllowed
+}
+
 function linuxAptGet {
 	executableFileExists apt-get
 
@@ -193,8 +207,9 @@ executableFileExists uname
 majorArch=`uname -s`;
 
 case $majorArch in
-	Linux*)		linuxDistroDetect ;;
-	Darwin*)	darwinOS ;;
+	FreeBSD)	freeBSD ;;
+	Linux)		linuxDistroDetect ;;
+	Darwin)		darwinOS ;;
 	*)		machine="UNKNOWN:$majorArch" ;;
 esac
 

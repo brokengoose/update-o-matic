@@ -44,10 +44,12 @@ emphasis is on safety rather than efficiency.
 * sudo bash update-o-matic/update-o-matic.sh
 * When it's time for updates, cd update-o-matic; git pull
 
-## Known Issues
+## Recent Changes
 
-I'm learning git as I do this. Every change is currently being pushed to the
-sole master branch, which is VERY dangerous. Things may break at any moment.
+I'm getting better with Git. Going forward, the "master" branch should be a lot more stable
+
+
+## Known Issues
 
 This is currently used and reasonably well tested in my own environment, but
 I haven't tested as much in different environments or from pristine installs.

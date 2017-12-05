@@ -43,6 +43,12 @@ function rebootIfAllowed {
 function freeBSDports {
 	executableFileExists pkg
 
+	# In theory, pkg -N could be used to detect whether pkg is set up.
+	# Unfortunately, in testing, it seems to always succeed, even if pkg
+	# was not set up. So, for now (especially since bash is required,
+	# and bash is not a part of the core FreeBSD install), we're just going
+	# to call pkg a requirement
+	
 	pkg check
 	pkg autoremove &&
 	pkg update &&

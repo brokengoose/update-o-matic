@@ -48,8 +48,8 @@ emphasis is on safety rather than efficiency.
   `git clone https://github.com/brokengoose/update-o-matic.git` or just 
   download the file
   `https://raw.githubusercontent.com/brokengoose/update-o-matic/master/update-o-matic.sh`
-* To run the script, type 
-   `sudo bash update-o-matic/update-o-matic.sh`
+* To run the script, go to the update-o-matic directory and type 
+   `sudo bash ./update-o-matic.sh`
 * When it's time for updates, type
   `cd update-o-matic; git pull`
   or download the file from github again.

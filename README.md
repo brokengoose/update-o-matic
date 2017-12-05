@@ -34,7 +34,7 @@ emphasis is on safety rather than efficiency.
   * Fedora
   * Raspbian
   * Redhat
-  * SuSE
+  * OpenSuSE
   * Ubuntu
 * Darwin (a.k.a. OS X)
   * with or without Macports

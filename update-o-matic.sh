@@ -49,7 +49,6 @@ function freeBSDports {
 	# and bash is not a part of the core FreeBSD install), we're just going
 	# to call pkg a requirement
 	
-	pkg check
 	pkg autoremove &&
 	pkg update &&
 	pkg upgrade
@@ -58,7 +57,7 @@ function freeBSDports {
 function freeBSD {
 	executableFileExists freebsd-update
 
-	freeBSDports
+#	freeBSDports
 
 	freebsd-update fetch &&
 	freebsd-update install &&

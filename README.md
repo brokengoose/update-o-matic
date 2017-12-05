@@ -16,10 +16,10 @@ emphasis is on safety rather than efficiency.
 1. bash
 2. ability to run as root (or equivalent, like sudo)
 3. The uname command must exist
-i
 
 ## General update order
 1. Update third-party repos or tools that run on top of the OS. Macports, etc.
+   These are updated first because many OS updates require an immediate reboot.
 2. Run any OS cleanup, fix, or check commands. If possible, the script should
    abort if this step fails.
 3. Sync update databases and get list of possible updates.

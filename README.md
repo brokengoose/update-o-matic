@@ -48,7 +48,7 @@ emphasis is on safety rather than efficiency.
 ## How to install and use
 * go to whatever directory you use to store source code.
 * To pull down the repository, type 
-  `git clone https://github.com/brokengoose/update-o-matic.git` or just 
+  `git clone https://github.com/brokengoose/update-o-matic.git` or 
   download the file
   `https://raw.githubusercontent.com/brokengoose/update-o-matic/master/update-o-matic.sh`
 * To run the script, go to the update-o-matic directory and type 
@@ -59,16 +59,12 @@ emphasis is on safety rather than efficiency.
 
 ## Recent Changes
 
-I'm getting better with Git. Going forward, the "master" branch should be a lot
-more stable.
+I'm new to Git, but getting better at it. Going forward, the "master" branch
+should be a lot more stable.
 
 
 
 ## Known Issues
 
-FreeBSD pkg setup detection isn't working properly, which could change a system
-much more than intended. Removing pkg updates until it's fixed.
-
-This is currently used and reasonably well tested in my own environment, but
-I haven't tested as much in different environments or from pristine installs.
+See https://github.com/brokengoose/update-o-matic/issues
 

@@ -214,6 +214,13 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
+# Grab command line argument
+case $1 in
+	reboot)		REBOOT=true ;;
+	noreboot)	REBOOT=false ;;
+	*)		echo Unknown argument $1 ;;
+esac
+
 executableFileExists uname
 majorArch=`uname -s`;
 

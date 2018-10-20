@@ -59,10 +59,7 @@ emphasis is on safety rather than efficiency.
 
 ## Recent Changes
 
-I'm new to Git, but getting better at it. Going forward, the "master" branch
-should be a lot more stable.
-
-
+Shutdown wasn't finding the correct path when run from crontab. For now, I've hard coded it to /sbin/shutdown
 
 ## Known Issues
 

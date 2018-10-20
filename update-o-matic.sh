@@ -28,7 +28,7 @@ function rebootIfAllowed {
 	if $REBOOT
 	then
 		shutdownCmd='/sbin/shutdown'
-		if [ -x "$shutdownLocation" ]
+		if [ -x "$shutdownCmd" ]
 		then
 			$shutdownCmd -r +5 "Applying Updates."
 		else

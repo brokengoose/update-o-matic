@@ -27,7 +27,7 @@ function executableFileExists {
 function rebootIfAllowed {
 	if $REBOOT
 	then
-		shutdownLocation=`which shutdown`
+		shutdownLocation='/sbin/shutdown'
 		if [ -x "$shutdownLocation" ]
 		then
 			shutdown -r +5 "Applying Updates."
@@ -176,11 +176,11 @@ function darwinMacports {
 	echo
 
 	echo Updating Macports
-	port selfupdate || exit
+	port selfupdate
 	echo
 
 	echo Upgrading outdated ports
-	port upgrade outdated || exit
+	port upgrade outdated
 	echo
 
 }

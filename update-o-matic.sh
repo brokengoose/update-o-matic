@@ -3,7 +3,8 @@
 # BEGIN GlobalVariables
 
 REBOOT=true
-PAT=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
 
 # END GlobalVariables
 

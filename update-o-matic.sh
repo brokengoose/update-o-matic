@@ -27,10 +27,10 @@ function executableFileExists {
 function rebootIfAllowed {
 	if $REBOOT
 	then
-		shutdownLocation='/sbin/shutdown'
+		shutdownCmd='/sbin/shutdown'
 		if [ -x "$shutdownLocation" ]
 		then
-			shutdown -r +5 "Applying Updates."
+			$shutdownCmd -r +5 "Applying Updates."
 		else
 			echo No shutdown command found.
 		fi

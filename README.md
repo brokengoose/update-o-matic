@@ -51,8 +51,10 @@ emphasis is on safety rather than efficiency.
   `git clone https://github.com/brokengoose/update-o-matic.git` or 
   download the file
   `https://raw.githubusercontent.com/brokengoose/update-o-matic/master/update-o-matic.sh`
-* To run the script, go to the update-o-matic directory and type 
+* To run the script interactively, go to the update-o-matic directory and type 
    `sudo bash ./update-o-matic.sh`
+* To run the script via cron, add something like the following to crontab
+   `@daily /opt/update-o-matic/update-o-matic.sh >> /tmp/update-o-matic.log 2>&1`
 * When it's time for updates,  go to the update-o-matic directory and type
   `git pull`
   or download the file from github again.

@@ -7,6 +7,8 @@ PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin
 
 # Reboot by default. Can override with the "noreboot" command line option.
 REBOOT=true
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
 
 # END GlobalVariables
 
@@ -35,10 +37,10 @@ function executableFileExists {
 function rebootIfAllowed {
 	if $REBOOT
 	then
-		shutdownLocation=`which shutdown`
-		if [ -x "$shutdownLocation" ]
+		shutdownCmd='/sbin/shutdown'
+		if [ -x "$shutdownCmd" ]
 		then
-			shutdown -r +5 "Applying Updates."
+			$shutdownCmd -r +5 "Applying Updates."
 		else
 			echo No shutdown command found.
 		fi
@@ -134,11 +136,11 @@ function darwinMacports {
 	echo
 
 	echo Updating Macports
-	port selfupdate || exit
+	port selfupdate
 	echo
 
 	echo Upgrading outdated ports
-	port upgrade outdated || exit
+	port upgrade outdated
 	echo
 
 }

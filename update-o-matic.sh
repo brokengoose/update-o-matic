@@ -2,6 +2,7 @@
 
 # BEGIN GlobalVariables
 
+# Reboot by default. Can override with the "noreboot" command line option.
 REBOOT=true
 
 # END GlobalVariables
@@ -9,6 +10,11 @@ REBOOT=true
 # BEGIN Functions 
 # bash requires that functions be declared before they're used
 # so this will build up from detailed functions to more abstract functions
+
+function notSupported {
+	echo "Unfortunately, this OS is not (or no longer) supported."
+	echo "If you'd like to add support, please submit a request."
+}
 
 function executableFileExists {
 	testFile=`which $1`
@@ -38,30 +44,6 @@ function rebootIfAllowed {
 		echo
 		echo Please reboot as soon as possible.
 	fi
-}
-
-function freeBSDports {
-	executableFileExists pkg
-
-	# In theory, pkg -N could be used to detect whether pkg is set up.
-	# Unfortunately, in testing, it seems to always succeed, even if pkg
-	# was not set up. So, for now (especially since bash is required,
-	# and bash is not a part of the core FreeBSD install), we're just going
-	# to call pkg a requirement
-	
-	pkg autoremove &&
-	pkg update &&
-	pkg upgrade
-}
-
-function freeBSD {
-	executableFileExists freebsd-update
-
-#	freeBSDports
-
-	freebsd-update fetch &&
-	freebsd-update install &&
-	rebootIfAllowed
 }
 
 function linuxAptGet {
@@ -225,7 +207,6 @@ executableFileExists uname
 majorArch=`uname -s`;
 
 case $majorArch in
-	FreeBSD)	freeBSD ;;
 	Linux)		linuxDistroDetect ;;
 	Darwin)		darwinOS ;;
 	*)		machine="UNKNOWN:$majorArch" ;;

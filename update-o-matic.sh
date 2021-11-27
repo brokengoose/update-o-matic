@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set a reasonable default path for non-interactive (cron, etc.) use
+PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
 # BEGIN GlobalVariables
 
 # Reboot by default. Can override with the "noreboot" command line option.
@@ -19,7 +22,6 @@ function notSupported {
 function executableFileExists {
 	testFile=`which $1`
 	if [ -x "$testFile" ]
-#	if type $testfile>/dev/null 2>&1
 	then
 		echo Found $1
 	else
@@ -72,14 +74,6 @@ function linuxYum {
 	rebootIfAllowed
 }
 
-function linuxZypper {
-	executableFileExists zypper
-
-	zypper refresh &&
-	zypper update --auto-agree-with-licenses --no-confirm &&
-	rebootIfAllowed
-}
-
 function redhatVariant {
 	# dnf seems to be the future direction for Redhat package management,
 	# but yum is still used in Redhat and CentOS
@@ -94,21 +88,6 @@ function redhatVariant {
 		linuxYum
 	else
 		Neither dnf nor yum found. Exiting.
-		exit
-	fi
-}
-
-function suseVariant {
-	echo SuSE variant detected.
-
-	if type zypper>/dev/null 2>&1
-	then
-		linuxZypper
-	else
-		# I think that there are still some supported versions
-		# of SuSE Enterprise that use YaST. 
-
-		echo SuSE, but zypper is not installed. Exiting.
 		exit
 	fi
 }
@@ -142,11 +121,8 @@ function linuxDistroDetect {
 		Raspbian*)	linuxAptGet ;;
 		Ubuntu*)	linuxAptGet ;;
 
-		SuSE*)		suseVariant ;;
-
        	        *)		echo Unknown Linux distribution $distro ;;
 	esac
-
 
 }
 
@@ -209,7 +185,7 @@ majorArch=`uname -s`;
 case $majorArch in
 	Linux)		linuxDistroDetect ;;
 	Darwin)		darwinOS ;;
-	*)		machine="UNKNOWN:$majorArch" ;;
+	*)		notSupported ;;
 esac
 
 # END Main

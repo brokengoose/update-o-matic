@@ -1,13 +1,10 @@
 #!/bin/bash
 
-# Set a reasonable default path for non-interactive (cron, etc.) use
-PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-
 # BEGIN GlobalVariables
 
 # Reboot by default. Can override with the "noreboot" command line option.
 REBOOT=true
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export PATH
 
 # END GlobalVariables
@@ -108,10 +105,7 @@ function linuxDistroDetect {
 		distro=$DISTRIB_ID
 	elif [ -f /etc/redhat-release ]
 	then
-		redhatVariant
-	elif [ -f /etc/SuSE-release ]
-	then
-		suseVariant
+		distro="Redhat "
 	fi
 
 	case $distro in

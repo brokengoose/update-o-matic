@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# BEGIN GlobalVariables
+# Global Variables. May be overridden by command line options.
 
 # Reboot by default. Can override with the "noreboot" command line option.
 REBOOT=true
-PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+REBOOTTIME=300
+PATH=$PATH:/opt/local/sbin:/usr/local/sbin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin
 export PATH
-
-# END GlobalVariables
 
 # BEGIN Functions 
 # bash requires that functions be declared before they're used
@@ -17,6 +16,15 @@ function notSupported {
 	echo "Unfortunately, this OS is not (or no longer) supported."
 	echo "If you'd like to add support, please submit a request."
 }
+
+function showHelp {
+	echo "Usage: update-o-matic.sh [-h|-n|-r|-t]"
+	echo " -h	Print this Help message"
+	echo " -n	No automatic reboot"
+	echo " -r	Reboot automatically"
+	echo " -t	Time after finishing before reboot (in seconds)"
+
+}	
 
 function executableFileExists {
 	testFile=`which $1`
@@ -168,11 +176,24 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
-# Grab command line argument
+# Grab command line arguments
+while getopts ":hnrt:" OPTION
+do
+case $OPTION in
+	h) showHelp; exit;;
+	n) REBOOT=false;;
+	r) REBOOT=true;;
+	t) REBOOTTIME=$OPTARG;;
+	\?) # Invalid option
+		echo "Error: invalid command line option"
+		exit;;
+esac
+done
+
 case $1 in
 	reboot)		REBOOT=true ;;
 	noreboot)	REBOOT=false ;;
-	*)		echo Unknown argument $1 ;;
+	# *)		echo Unknown argument $1 ;;
 esac
 
 executableFileExists uname

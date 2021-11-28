@@ -4,7 +4,8 @@
 
 # Reboot by default. Can override with the "noreboot" command line option.
 REBOOT=true
-REBOOTTIME=300
+# REBOOTTIME is minutes after updates complete
+REBOOTTIME=3
 PATH=$PATH:/opt/local/sbin:/usr/local/sbin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin
 export PATH
 
@@ -45,7 +46,7 @@ function rebootIfAllowed {
 		shutdownCmd='/sbin/shutdown'
 		if [ -x "$shutdownCmd" ]
 		then
-			$shutdownCmd -r +5 "Applying Updates."
+			$shutdownCmd -r +$REBOOTTIME "Applying Updates."
 		else
 			echo No shutdown command found.
 		fi

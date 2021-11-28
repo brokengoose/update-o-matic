@@ -37,12 +37,9 @@ emphasis is on safety rather than efficiency.
   * Fedora
   * Raspbian
   * Redhat
-  * OpenSuSE
   * Ubuntu
 * Darwin (a.k.a. OS X)
   * with or without Macports
-* FreeBSD with bash installed (but ports are NOT automatically updated
-  at the moment)
 
 
 ## How to install and use
@@ -61,7 +58,11 @@ emphasis is on safety rather than efficiency.
 
 ## Recent Changes
 
-Shutdown wasn't finding the correct path when run from crontab. For now, I've hard coded it to /sbin/shutdown
+* Removed SuSE and FreeBSD support, as I no longer regularly use those operating systems.
+* Added proper getopts command line flag processing
+* Added help option
+* Added reboot wait time option
+
 
 ## Known Issues
 

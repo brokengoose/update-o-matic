@@ -9,7 +9,7 @@ REBOOTTIME=3
 PATH=$PATH:/opt/local/sbin:/usr/local/sbin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin
 export PATH
 
-# BEGIN Functions 
+# BEGIN Functions
 # bash requires that functions be declared before they're used
 # so this will build up from detailed functions to more abstract functions
 
@@ -25,7 +25,7 @@ function showHelp {
 	echo " -r	Reboot automatically"
 	echo " -t	Time after finishing before reboot (in seconds)"
 
-}	
+}
 
 function executableFileExists {
 	testFile=`which $1`
@@ -87,7 +87,7 @@ function redhatVariant {
 	# but yum is still used in Redhat and CentOS
 
 	echo Redhat variant detected.
-	
+
 	if type dnf>/dev/null 2>&1
 	then
 		linuxDnf
@@ -125,6 +125,7 @@ function linuxDistroDetect {
 		Debian*)	linuxAptGet ;;
 		Raspbian*)	linuxAptGet ;;
 		Ubuntu*)	linuxAptGet ;;
+                Linux\ Mint*)   linuxAptGet ;;
 
        	        *)		echo Unknown Linux distribution $distro ;;
 	esac

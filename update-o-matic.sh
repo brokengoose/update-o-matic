@@ -4,8 +4,10 @@
 
 # Reboot by default. Can override with the "noreboot" command line option.
 REBOOT=true
-# REBOOTTIME is minutes after updates complete
+# REBOOTTIME is minutes after updates complete.
 REBOOTTIME=3
+# FLATPAKUSER is a username for flatpak user updates.
+FLATPAKUSER="nobody"
 PATH=$PATH:/opt/local/sbin:/usr/local/sbin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin
 export PATH
 
@@ -19,12 +21,12 @@ function notSupported {
 }
 
 function showHelp {
-	echo "Usage: update-o-matic.sh [-h|-n|-r|-t]"
+	echo "Usage: update-o-matic.sh [-h|-n|-r] [-t seconds] [-u username]"
 	echo " -h	Print this Help message"
 	echo " -n	No automatic reboot"
 	echo " -r	Reboot automatically"
 	echo " -t	Time after finishing before reboot (in seconds)"
-
+	echo " -u	Username for flatpak user update"
 }
 
 function executableFileExists {
@@ -38,6 +40,15 @@ function executableFileExists {
 		echo your package manager.
 		exit
 	fi
+}
+
+function optionalExecutableFileExists {
+	testFile=`which $1`
+	if [ -x "$testFile" ]; then
+		echo Found $1
+		return 0
+	fi
+	return 1
 }
 
 function rebootIfAllowed {
@@ -56,12 +67,28 @@ function rebootIfAllowed {
 	fi
 }
 
+function linuxFlatpak {
+	optionalExecutableFileExists flatpak
+	if [ $? -ne 0 ]; then
+		return 0
+	fi
+
+	# Get the system-wide updates first.
+	flatpak update -y
+
+	if [[ "${FLATPAKUSER}" != "nobody" ]]; then
+		# su to the user defined on the command line to apply user updates.
+		su ${FLATPAKUSER} --command "flatpak update -y"
+	fi
+}
+
 function linuxAptGet {
 	executableFileExists apt-get
 
 	/usr/bin/apt-get autoremove --yes &&
 	/usr/bin/apt-get update --yes &&
 	/usr/bin/apt-get dist-upgrade --yes &&
+	linuxFlatpak
 	rebootIfAllowed
 }
 
@@ -125,7 +152,8 @@ function linuxDistroDetect {
 		Debian*)	linuxAptGet ;;
 		Raspbian*)	linuxAptGet ;;
 		Ubuntu*)	linuxAptGet ;;
-                Linux\ Mint*)   linuxAptGet ;;
+		Linux\ Mint*)   linuxAptGet ;;
+		Pop\!_OS*)	linuxAptGet ;;
 
        	        *)		echo Unknown Linux distribution $distro ;;
 	esac
@@ -179,13 +207,14 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Grab command line arguments
-while getopts ":hnrt:" OPTION
+while getopts ":hnrt:u:" OPTION
 do
 case $OPTION in
 	h) showHelp; exit;;
 	n) REBOOT=false;;
 	r) REBOOT=true;;
 	t) REBOOTTIME=$OPTARG;;
+	u) FLATPAKUSER=$OPTARG;;
 	\?) # Invalid option
 		echo "Error: invalid command line option"
 		exit;;
